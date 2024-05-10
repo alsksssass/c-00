@@ -4,14 +4,17 @@
 #include <cctype>
 #include <cstdlib>
 #include <cstdio>
-void Book::ADD(std::string f_name, std::string l_name, std::string nickname, std::string number, std::string darkest_secret)
+void Book::ADD(Data &d)
 {
-	int index = this->num % 8;
-	a[index] = Data(f_name,l_name,nickname,number,darkest_secret);
-	this->num++;
+	if(this->index >= 8)
+		this->index = 0;
+	a[this->index] = d;
+	if(this->num < 8)
+		this->num++;
+	this->index++;
 }
 
-void print_data(std::string str)
+void Book::print_data(std::string str)
 {
 	std::cout << "|";
 	if (str.size() > 10)
@@ -22,7 +25,7 @@ void print_data(std::string str)
 		std::cout << std::setw(10) << str.substr(0,10);
 }
 
-void print_index()
+void Book::print_index()
 {
 	print_data("INDEX");
 	print_data("FIRSTNAME");
@@ -40,51 +43,45 @@ int is_num (std::string str)
 	return 1;
 }
 
-void Book::print_number (int index)
+void Book::print_number (int _index)
 {
 	std::cout << std::endl;
 	std::cout << "CONTACT DETAIL" << std::endl;
-	std::cout << "index :" << index << std::endl;
-	std::cout << "FRIST NAME :" << a[index].GET_DATA(0) << std::endl;
-	std::cout << "LAST NAME :" << a[index].GET_DATA(1) << std::endl;
-	std::cout << "NICKNAME :" << a[index].GET_DATA(2) << std::endl;
-	std::cout << "NUMBER :" << a[index].GET_DATA(3) << std::endl;
-	std::cout << "DARKEST_SECRET :" << a[index].GET_DATA(4) << std::endl <<std::endl;
+	std::cout << "index :" << _index << std::endl;
+	std::cout << "FRIST NAME :" << a[_index].get_fname() << std::endl;
+	std::cout << "LAST NAME :" << a[_index].get_lname() << std::endl;
+	std::cout << "NICKNAME :" << a[_index].get_nickname() << std::endl;
+	std::cout << "NUMBER :" << a[_index].get_number() << std::endl;
+	std::cout << "DARKEST_SECRET :" << a[_index].get_darkest() << std::endl <<std::endl;
 }
-void Book::show_number (std::string index){
+void Book::show_number (std::string _index){
 	std::cout << std::endl;
 	char *ptr;
-	const char *str = index.c_str();
+	const char *str = _index.c_str();
 	int num; num = strtol(str, &ptr, 10);
-	if (ptr != 0 || 0 > num || this->num % 8 - 1 < num)
-		std::cout << "!!>> " << index << " << NOT VAILID!!\n" << std::endl; /// 수정
+	if (0 == this->num || this->num <= num)
+		std::cout << "!!>> " << _index << " << NOT VAILID!!\n" << std::endl;
 	else
 		Book::print_number(num);
 }
 int Book::SEARCH()
 {
 	std::cout << std::endl;
-	if (num == 0)
+	if (this->num == 0)
 	{
 		std::cout << "NO DATA\n" << std::endl;
 		return 0;
 	}
 	std::cout << "---------------------------------------------" << '\n' ;
-	print_index();
-	int p_num;
-	if (num > 8)
-		p_num = 8;
-	else 
-		p_num = num;
-	for(int i = 0; i<p_num; i++)
+	Book::print_index();
+	for(int i = 0; i < this->num; i++)
 	{
-		char num[20];
-		sprintf(num, "%d" ,i);
-		std::string s_num = num;
-		print_data(s_num);
-		print_data(a[i].GET_DATA(0));
-		print_data(a[i].GET_DATA(1));
-		print_data(a[i].GET_DATA(2));
+		char _index[2] = {0}; _index[0] = i + '0';
+		std::string s_index = _index;
+		print_data(s_index);
+		print_data(a[i].get_fname());
+		print_data(a[i].get_lname());
+		print_data(a[i].get_nickname());
 		std::cout << "|" << '\n';
 	}
 	std::cout << "---------------------------------------------" << '\n' ;
@@ -98,8 +95,10 @@ int Book::SEARCH()
 	return 0;
 }
 
+
 Book::Book() {
 	num = 0;
+	index = 0;
 }
 Book::~Book() {
 }

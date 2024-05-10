@@ -1,4 +1,4 @@
-NAME = a.out
+NAME = phonebook
 CC = c++
 CFLAGS = -Wall -Wextra -Werror
 ADFLAG = -std=c++98

@@ -8,11 +8,9 @@ void to_upper(std::string &str)
 		if(std::islower(str[i]))
 			str[i] = str[i] - 'a' + 'A';
 	}
-	str += " ";	
 }
 
 int main(int argc , char** argv) {
-	std::string str = *argv;
 	if (argc == 1)
 		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" ;
 	else if (argc >= 2)

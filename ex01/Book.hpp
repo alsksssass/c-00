@@ -1,18 +1,23 @@
 #ifndef BOOK_HPP
 #define BOOK_HPP
+
 #include "Data.hpp"
+
 
 class Book
 {
 private:
 	Data a[8];
+	int index;
 	int num;
+	void print_number (int index);
+	void print_index();
+	void show_number (std::string index);
+	void print_data(std::string str);
 public:
 	Book();
-	void ADD(std::string f_name, std::string l_name, std::string nickname, std::string number, std::string darkest_secret);
+	void ADD(Data &d);
 	int SEARCH();
-	void show_number (std::string index);
-	void print_number (int index);
 	~Book();
 };
 # endif

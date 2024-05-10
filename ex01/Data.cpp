@@ -29,27 +29,27 @@ void Data::make_data(Book &note)
 	std::string temp;
 	std::cout << "FIRST NAME : ";
 	std::getline(std::cin, temp);
-	if(!is_ok(temp))
+	if(!Data::is_ok(temp))
 		throw "f_name";
 	get.set_fname(temp);
 	std::cout << "LAST NAME : ";
 	std::getline(std::cin, temp);
-	if(!is_ok(temp))
+	if(!Data::is_ok(temp))
 		throw "l_name";
 	get.set_lname(temp);
 	std::cout << "NICKNAME : ";
 	std::getline(std::cin, temp);
-	if(!is_ok(temp))
+	if(!Data::is_ok(temp))
 		throw "nickname";
 	get.set_nickname(temp);
 	std::cout << "NUMBER : ";
 	std::getline(std::cin, temp);
-	if(!is_ok(temp))
+	if(!Data::is_ok(temp))
 		throw "number";
 	get.set_number(temp);
 	std::cout << "DARKEST_SECRET : ";
 	std::getline(std::cin, temp);
-	if(!is_ok(temp))
+	if(!Data::is_ok(temp))
 		throw "darkest_secret";
 	get.set_darkest(temp);
 	note.ADD(get);
